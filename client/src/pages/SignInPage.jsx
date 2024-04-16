@@ -9,7 +9,8 @@ export default function SignInPage() {
       onSubmit={handleLogin}
       buttonText="Sign In"
       buttonColor="blue"
-      linkText="Don't have an account?"
+      helpText="Don't have an account?"
+      linkText="Sign up"
       onLinkClick={switchToRegister}
     />
   );

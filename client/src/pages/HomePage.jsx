@@ -31,7 +31,7 @@ export const fakeUsers = [
 
 export default function HomePage() {
   return (
-    <div className="flex flex-col items-center">
+    <div className="flex flex-col">
       <Toolbar />
       <UserTable users={fakeUsers} />
     </div>

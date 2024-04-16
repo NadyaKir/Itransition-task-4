@@ -4,15 +4,18 @@ const AuthForm = ({
   onSubmit,
   buttonText,
   buttonColor,
+  helpText,
   linkText,
   onLinkClick,
+  isRegistrationPage,
 }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSubmit(username, password);
+    onSubmit(username, password, name);
   };
 
   return (
@@ -21,12 +24,30 @@ const AuthForm = ({
         className="bg-white shadow-md rounded px-8 pt-6 pb-8"
         onSubmit={handleSubmit}
       >
+        {isRegistrationPage && (
+          <div className="mb-4">
+            <label
+              className="block text-gray-700 text-sm font-bold mb-2"
+              htmlFor="name"
+            >
+              Username
+            </label>
+            <input
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              id="name"
+              type="text"
+              placeholder="Name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            />
+          </div>
+        )}
         <div className="mb-4">
           <label
             className="block text-gray-700 text-sm font-bold mb-2"
             htmlFor="username"
           >
-            Username
+            Email
           </label>
           <input
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -61,12 +82,12 @@ const AuthForm = ({
             {buttonText}
           </button>
           <span className="text-sm mt-2">
-            {linkText}{" "}
+            {helpText}{" "}
             <button
               className="text-blue-500 hover:underline focus:outline-none"
               onClick={onLinkClick}
             >
-              Sign in here
+              {linkText}
             </button>
           </span>
         </div>

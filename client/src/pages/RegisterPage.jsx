@@ -9,7 +9,9 @@ export default function RegisterPage() {
       onSubmit={handleRegister}
       buttonText="Register"
       buttonColor="green"
-      linkText="Already have an account?"
+      helpText="Already have an account?"
+      linkText="Sign in"
+      isRegistrationPage={true}
       onLinkClick={switchToLogin}
     />
   );
