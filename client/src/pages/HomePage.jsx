@@ -1,3 +1,4 @@
+import NavBar from "../components/NavBar";
 import Toolbar from "../components/ToolBar";
 import UserTable from "../components/UsersTable";
 
@@ -30,7 +31,7 @@ export const fakeUsers = [
 
 export default function HomePage() {
   return (
-    <div className="flex flex-col items-center min-h-screen">
+    <div className="flex flex-col items-center">
       <Toolbar />
       <UserTable users={fakeUsers} />
     </div>
