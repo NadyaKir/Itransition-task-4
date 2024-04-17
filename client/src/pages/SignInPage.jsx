@@ -2,7 +2,6 @@ import AuthForm from "../components/AuthForm";
 
 export default function SignInPage() {
   const handleLogin = () => {};
-  const switchToRegister = () => {};
 
   return (
     <AuthForm
@@ -11,7 +10,7 @@ export default function SignInPage() {
       buttonColor="blue"
       helpText="Don't have an account?"
       linkText="Sign up"
-      onLinkClick={switchToRegister}
+      isRegistrationPage={false}
     />
   );
 }

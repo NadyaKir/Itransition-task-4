@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const AuthForm = ({
   onSubmit,
@@ -6,9 +7,10 @@ const AuthForm = ({
   buttonColor,
   helpText,
   linkText,
-  onLinkClick,
   isRegistrationPage,
 }) => {
+  const navigate = useNavigate();
+
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
@@ -16,6 +18,10 @@ const AuthForm = ({
   const handleSubmit = (e) => {
     e.preventDefault();
     onSubmit(username, password, name);
+  };
+
+  const onLinkClick = () => {
+    isRegistrationPage ? navigate("/signin") : navigate("/register");
   };
 
   return (
@@ -58,7 +64,7 @@ const AuthForm = ({
             onChange={(e) => setUsername(e.target.value)}
           />
         </div>
-        <div className="mb-6">
+        <div className="mb-2">
           <label
             className="block text-gray-700 text-sm font-bold mb-2"
             htmlFor="password"
