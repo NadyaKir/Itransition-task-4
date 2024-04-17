@@ -28,3 +28,29 @@ export const getAllUsers = async (req, res) => {
     res.status(500).json({ error: error });
   }
 };
+
+export const deleteUser = async (req, res) => {
+  try {
+    const userId = req.params.id;
+
+    if (Array.isArray(userId)) {
+      const deletedUsers = await User.deleteMany({ _id: { $in: userId } });
+
+      if (deletedUsers.deletedCount === 0) {
+        return res.status(404).json({ msg: "Users not found" });
+      }
+
+      return res.status(200).json({ msg: "Users deleted successfully" });
+    } else {
+      const deletedUser = await User.findByIdAndDelete(userId);
+
+      if (!deletedUser) {
+        return res.status(404).json({ msg: "User not found" });
+      }
+
+      return res.status(200).json({ msg: "User deleted successfully" });
+    }
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
+};

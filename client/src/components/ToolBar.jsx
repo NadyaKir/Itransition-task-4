@@ -1,4 +1,5 @@
 import React from "react";
+import axios from "axios";
 import { RiLockUnlockFill, RiDeleteBin5Fill } from "react-icons/ri";
 
 const Toolbar = ({ onBlock, onUnblock, onDelete }) => {
