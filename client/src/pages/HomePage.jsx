@@ -1,39 +1,31 @@
-import NavBar from "../components/NavBar";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+
 import Toolbar from "../components/ToolBar";
 import UserTable from "../components/UsersTable";
 
-export const fakeUsers = [
-  {
-    id: 1,
-    name: "John Doe",
-    email: "john@example.com",
-    registrationDate: "2024-04-16",
-    lastLoginDate: "2024-04-16",
-    status: "Active",
-  },
-  {
-    id: 2,
-    name: "Jane Smith",
-    email: "jane@example.com",
-    registrationDate: "2024-04-15",
-    lastLoginDate: "2024-04-15",
-    status: "Blocked",
-  },
-  {
-    id: 3,
-    name: "Alice Johnson",
-    email: "alice@example.com",
-    registrationDate: "2024-04-14",
-    lastLoginDate: "2024-04-14",
-    status: "Active",
-  },
-];
-
 export default function HomePage() {
+  const [users, setUsers] = useState([]);
+
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const response = await axios.get(
+          "http://localhost:8000/api/getAllUsers"
+        );
+        setUsers(response.data);
+      } catch (error) {
+        console.error("Error fetching users:", error);
+      }
+    };
+
+    fetchUsers();
+  }, []);
+
   return (
     <div className="flex flex-col">
       <Toolbar />
-      <UserTable users={fakeUsers} />
+      <UserTable users={users} />
     </div>
   );
 }
