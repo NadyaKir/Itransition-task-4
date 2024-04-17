@@ -1,24 +1,21 @@
 import React, { useState } from "react";
 
 const UserTable = ({ users }) => {
-  if (!users || users.length === 0) {
-    return <p>No users available</p>;
-  }
-
   const [selectAll, setSelectAll] = useState(false);
   const [selectedUsers, setSelectedUsers] = useState([]);
 
   const handleSelectAll = () => {
     setSelectAll(!selectAll);
-    setSelectedUsers(selectAll ? [] : users.map((user) => user.id));
+    setSelectedUsers(selectAll ? [] : users.map((user) => user._id));
   };
 
   const handleSelectUser = (userId) => {
-    if (selectedUsers.includes(userId)) {
-      setSelectedUsers(selectedUsers.filter((id) => id !== userId));
-    } else {
-      setSelectedUsers([...selectedUsers, userId]);
-    }
+    const newSelectedUsers = selectedUsers.includes(userId)
+      ? selectedUsers.filter((id) => id !== userId)
+      : [...selectedUsers, userId];
+
+    setSelectedUsers(newSelectedUsers);
+    setSelectAll(newSelectedUsers.length === users.length);
   };
 
   return (
@@ -56,16 +53,16 @@ const UserTable = ({ users }) => {
         </thead>
         <tbody className="bg-white divide-y divide-gray-200">
           {users.map((user) => (
-            <tr key={user.id} className="hover:bg-gray-50">
+            <tr key={user._id} className="hover:bg-gray-50">
               <td className="px-6 py-4 whitespace-nowrap">
                 <input
                   type="checkbox"
-                  checked={selectedUsers.includes(user.id)}
-                  onChange={() => handleSelectUser(user.id)}
+                  checked={selectedUsers.includes(user._id)}
+                  onChange={() => handleSelectUser(user._id)}
                   className="form-checkbox h-5 w-5 text-blue-600"
                 />
               </td>
-              <td className="px-6 py-4 whitespace-nowrap">{user.id}</td>
+              <td className="px-6 py-4 whitespace-nowrap">{user._id}</td>
               <td className="px-6 py-4 whitespace-nowrap">{user.name}</td>
               <td className="px-6 py-4 whitespace-nowrap">{user.email}</td>
               <td className="px-6 py-4 whitespace-nowrap">
