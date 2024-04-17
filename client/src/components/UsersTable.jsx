@@ -1,5 +1,6 @@
 import React from "react";
 import { PropagateLoader } from "react-spinners";
+import { getStatusColor } from "../utils/heplers";
 
 const UserTable = ({
   users,
@@ -68,7 +69,17 @@ const UserTable = ({
                   <td className="px-6 py-4 whitespace-nowrap">
                     {user.lastLoginDate}
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap">{user.status}</td>
+                  <td className="px-6 py-4 whitespace-nowrap">
+                    <div className="flex justify-start items-center">
+                      <span
+                        className={`inline-block w-16 text-center rounded-full px-2 py-1 text-xs font-semibold ${getStatusColor(
+                          user.status
+                        )}`}
+                      >
+                        {user.status}
+                      </span>
+                    </div>
+                  </td>
                 </tr>
               ))}
             </tbody>
