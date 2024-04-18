@@ -14,7 +14,7 @@ const Toolbar = ({ onBlock, onUnblock, onDelete }) => {
         </button>
         <button
           onClick={onUnblock}
-          className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded mr-2 flex items-center"
+          className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-2 rounded mr-2 flex items-center"
         >
           <RiLockUnlockFill className="text-2xl" />
         </button>
@@ -22,7 +22,7 @@ const Toolbar = ({ onBlock, onUnblock, onDelete }) => {
       <div>
         <button
           onClick={onDelete}
-          className="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded flex items-center"
+          className="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-2 rounded flex items-center"
         >
           <RiDeleteBin5Fill className="text-2xl" />
         </button>
