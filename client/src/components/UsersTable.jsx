@@ -16,7 +16,7 @@ const UserTable = ({
           <PropagateLoader color="#36d7b7" />
         </div>
       ) : (
-        <div className="overflow-x-auto relative">
+        <div className="overflow-x-auto relative flex-1">
           <table className="min-w-full divide-y divide-gray-200">
             <thead className="bg-gray-50">
               <tr>
