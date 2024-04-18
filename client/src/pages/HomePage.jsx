@@ -56,9 +56,28 @@ export default function HomePage() {
     }
   };
 
+  const handleStatusChange = async (status) => {
+    console.log(selectedUsers);
+    try {
+      const response = await axios.put(
+        `http://localhost:8000/api/updateUserStatus`,
+        { userIds: selectedUsers, status }
+      );
+      setSelectedUsers([]);
+      fetchData();
+      return response.data;
+    } catch (error) {
+      console.error("Error updating users:", error);
+    }
+  };
+
   return (
     <div className="flex-1 flex-col flex">
-      <Toolbar onDelete={handleDelete} />
+      <Toolbar
+        onDelete={handleDelete}
+        onBlock={() => handleStatusChange("blocked")}
+        onUnblock={() => handleStatusChange("active")}
+      />
       <UserTable
         users={users}
         selectedUsers={selectedUsers}
