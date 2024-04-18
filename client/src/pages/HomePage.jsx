@@ -57,7 +57,7 @@ export default function HomePage() {
   };
 
   return (
-    <div className="flex flex-col">
+    <div className="flex-1 flex-col flex">
       <Toolbar onDelete={handleDelete} />
       <UserTable
         users={users}
