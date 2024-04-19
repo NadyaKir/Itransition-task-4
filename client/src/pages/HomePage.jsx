@@ -45,11 +45,12 @@ export default function HomePage() {
   const handleDelete = async () => {
     const loggedInUserEmail = localStorage.getItem("email");
 
-    const selectedUserEmails = users
-      .filter((user) => selectedUsers.includes(user._id))
-      .map((user) => user.email);
+    const isUserInStorage = selectedUsers.some((userId) => {
+      const user = users.find((user) => user._id === userId);
+      return user.email === loggedInUserEmail;
+    });
 
-    if (selectedUserEmails.includes(loggedInUserEmail)) {
+    if (isUserInStorage) {
       localStorage.removeItem("token");
       localStorage.removeItem("email");
       navigate("/signin");
@@ -73,20 +74,22 @@ export default function HomePage() {
   const handleStatusChange = async (status) => {
     const loggedInUserEmail = localStorage.getItem("email");
 
-    const selectedUserEmails = users
-      .filter((user) => selectedUsers.includes(user._id))
-      .map((user) => user.email);
-
-    const isAnyBlocked = selectedUsers.some((userId) => {
+    const isUserInStorage = selectedUsers.some((userId) => {
       const user = users.find((user) => user._id === userId);
-      return user.status === "blocked";
+      return user.email === loggedInUserEmail;
     });
 
-    if (selectedUserEmails.includes(loggedInUserEmail) && isAnyBlocked) {
+    selectedUsers.forEach(async (userId) => {
+      const user = users.find((user) => user._id === userId);
+      user.status = status;
+    });
+
+    if (isUserInStorage && status === "blocked") {
       localStorage.removeItem("token");
       localStorage.removeItem("email");
       navigate("/signin");
     }
+
     console.log(selectedUsers);
     try {
       const response = await axios.put(
