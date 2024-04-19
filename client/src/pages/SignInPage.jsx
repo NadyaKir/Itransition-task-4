@@ -15,8 +15,8 @@ export default function SignInPage() {
       });
       const token = response.data.token;
       localStorage.setItem("token", token);
+      localStorage.setItem("email", email);
       navigate("/");
-      console.log("Logged in successfully:", token);
     } catch (error) {
       console.error("Error logging in:", error);
       if (error.response) {

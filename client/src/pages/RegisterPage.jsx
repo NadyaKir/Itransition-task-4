@@ -9,15 +9,16 @@ export default function RegisterPage() {
     console.log(username, email, password);
     try {
       const response = await axios.post("http://localhost:8000/api/create", {
-        username,
+        name: username,
         email,
         password,
       });
-      navigate("/signin");
 
-      if (!response.data.success) {
+      if (!response.data) {
         throw new Error(response.data.message || "Registration failed");
       }
+
+      navigate("/signin");
     } catch (error) {
       console.log(error);
     }
