@@ -11,7 +11,7 @@ import App from "./App.jsx";
 import HomePage from "./pages/HomePage.jsx";
 import SignInPage from "./pages/SignInPage.jsx";
 import RegisterPage from "./pages/RegisterPage.jsx";
-import ProtectedRoutes from "./routes/ProtectedRoute.js";
+import ProtectedRoutes from "./routes/ProtectedRoute.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
