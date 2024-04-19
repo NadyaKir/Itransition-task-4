@@ -12,6 +12,7 @@ export default function SignInPage() {
       const response = await axios.post("http://localhost:8000/api/login", {
         email,
         password,
+        lastLoginDate: new Date(),
       });
       const token = response.data.token;
       localStorage.setItem("token", token);

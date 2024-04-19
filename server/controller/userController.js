@@ -79,7 +79,7 @@ export const updateUserStatus = async (req, res) => {
 
 export const userLogin = async (req, res) => {
   const secretKey = uuidv4();
-  const { email, password } = req.body;
+  const { email, password, lastLoginDate } = req.body;
   try {
     const user = await User.findOne({ email });
 
@@ -90,6 +90,8 @@ export const userLogin = async (req, res) => {
     if (user.status === "blocked") {
       return res.status(403).json({ error: "Your account is blocked" });
     }
+
+    await User.updateOne({ _id: user._id }, { lastLoginDate });
 
     const token = jwt.sign({ userId: user._id }, secretKey, {
       expiresIn: "1h",
