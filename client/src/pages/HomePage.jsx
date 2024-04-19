@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import fetchUsers from "../api/fetchUsers";
 import Toolbar from "../components/ToolBar";
 import UserTable from "../components/UsersTable";
 
 export default function HomePage() {
+  const navigate = useNavigate();
   const [users, setUsers] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [selectAll, setSelectAll] = useState(false);
@@ -57,6 +59,19 @@ export default function HomePage() {
   };
 
   const handleStatusChange = async (status) => {
+    const loggedInUserEmail = localStorage.getItem("email");
+
+    const selectedUserEmail = users.find((user) =>
+      selectedUsers.includes(user._id)
+    ).email;
+
+    console.log(loggedInUserEmail);
+    console.log(selectedUserEmail);
+    if (loggedInUserEmail === selectedUserEmail && status === "blocked") {
+      localStorage.removeItem("token");
+      localStorage.removeItem("email");
+      navigate("/signin");
+    }
     console.log(selectedUsers);
     try {
       const response = await axios.put(

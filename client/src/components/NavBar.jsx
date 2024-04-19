@@ -10,6 +10,7 @@ const NavBar = () => {
   const handleLogout = () => {
     try {
       localStorage.removeItem("token");
+      localStorage.removeItem("email");
       navigate("/signin");
       console.log("Logged out successfully");
     } catch (error) {
@@ -18,7 +19,7 @@ const NavBar = () => {
   };
 
   return (
-    <nav className="bg-gray-800 p-2 w-full">
+    <nav className="bg-gray-800 h-16 p-2 w-full">
       <div className="mx-auto px-4 flex justify-between items-center">
         <div>
           {userEmail && (
