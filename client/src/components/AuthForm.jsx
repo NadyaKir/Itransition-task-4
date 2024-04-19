@@ -8,6 +8,7 @@ const AuthForm = ({
   helpText,
   linkText,
   isRegistrationPage,
+  error,
 }) => {
   const navigate = useNavigate();
 
@@ -17,7 +18,7 @@ const AuthForm = ({
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSubmit(username, email, password);
+    onSubmit({ username, email, password });
   };
 
   const onLinkClick = () => {
@@ -25,24 +26,29 @@ const AuthForm = ({
   };
 
   return (
-    <div className="flex justify-center items-center h-full">
+    <div className="flex justify-center items-center h-full flex-1">
       <form
         className="bg-white shadow-md rounded px-8 pt-6 pb-8"
         onSubmit={handleSubmit}
       >
+        {error && (
+          <div className="text-red-600 mb-2 mt-4 text-center w-full max-w-sm">
+            {error}
+          </div>
+        )}
         {isRegistrationPage && (
           <div className="mb-4">
             <label
               className="block text-gray-700 text-sm font-bold mb-2"
-              htmlFor="name"
+              htmlFor="username"
             >
               Username
             </label>
             <input
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              id="name"
+              id="username"
               type="text"
-              placeholder="Name"
+              placeholder="Username"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
             />
@@ -51,15 +57,15 @@ const AuthForm = ({
         <div className="mb-4">
           <label
             className="block text-gray-700 text-sm font-bold mb-2"
-            htmlFor="username"
+            htmlFor="email"
           >
             Email
           </label>
           <input
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            id="username"
+            id="email"
             type="text"
-            placeholder="Username"
+            placeholder="Email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />

@@ -1,3 +1,7 @@
+import { v4 as uuidv4 } from "uuid";
+import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
+
 import User from "../model/userModel.js";
 
 export const create = async (req, res) => {
@@ -70,5 +74,35 @@ export const updateUserStatus = async (req, res) => {
     }
   } catch (error) {
     return res.status(500).json({ error: error.message });
+  }
+};
+
+export const userLogin = async (req, res) => {
+  const secretKey = uuidv4();
+  const { email, password } = req.body;
+  try {
+    // Находим пользователя в базе данных по email
+    const user = await User.findOne({ email });
+
+    // Проверяем, найден ли пользователь и совпадает ли его пароль
+    if (!user || !(await bcrypt.compare(password, user.password))) {
+      return res.status(401).json({ error: "Invalid email or password" });
+    }
+
+    // Проверяем статус пользователя
+    if (user.status === "blocked") {
+      return res.status(403).json({ error: "Your account is blocked" });
+    }
+
+    // Если пользователь активен, генерируем JWT токен для аутентификации
+    const token = jwt.sign({ userId: user._id }, secretKey, {
+      expiresIn: "1h", // Время жизни токена
+    });
+
+    // Отправляем токен в ответ на успешный вход
+    res.status(200).json({ token });
+  } catch (error) {
+    console.error("Error logging in:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
 };
