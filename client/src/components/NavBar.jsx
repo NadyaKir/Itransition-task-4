@@ -19,7 +19,7 @@ const NavBar = () => {
 
   return (
     <nav className="bg-gray-800 p-2 w-full">
-      <div className="max-w-7xl mx-auto px-4 flex justify-between items-center">
+      <div className="mx-auto px-4 flex justify-between items-center">
         <div>
           {userEmail && (
             <span className="text-white">Logged in as: {userEmail}</span>
