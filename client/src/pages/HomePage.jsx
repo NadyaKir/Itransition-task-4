@@ -43,6 +43,18 @@ export default function HomePage() {
   };
 
   const handleDelete = async () => {
+    const loggedInUserEmail = localStorage.getItem("email");
+
+    const selectedUserEmail = users.find((user) =>
+      selectedUsers.includes(user._id)
+    ).email;
+
+    if (loggedInUserEmail === selectedUserEmail) {
+      localStorage.removeItem("token");
+      localStorage.removeItem("email");
+      navigate("/signin");
+    }
+
     try {
       const deletePromises = selectedUsers.map(async (userId) => {
         const response = await axios.delete(
@@ -65,8 +77,6 @@ export default function HomePage() {
       selectedUsers.includes(user._id)
     ).email;
 
-    console.log(loggedInUserEmail);
-    console.log(selectedUserEmail);
     if (loggedInUserEmail === selectedUserEmail && status === "blocked") {
       localStorage.removeItem("token");
       localStorage.removeItem("email");

@@ -6,12 +6,12 @@ import {
   createBrowserRouter,
   createRoutesFromElements,
 } from "react-router-dom";
+import "./index.css";
 import App from "./App.jsx";
 import HomePage from "./pages/HomePage.jsx";
-import "./index.css";
 import SignInPage from "./pages/SignInPage.jsx";
 import RegisterPage from "./pages/RegisterPage.jsx";
-
+import ProtectedRoute from "./routes/PrivateRoute.js";
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />}>
