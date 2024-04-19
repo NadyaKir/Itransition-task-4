@@ -20,11 +20,9 @@ const NavBar = () => {
 
   return (
     <nav className="bg-gray-800 h-16 p-2 w-full">
-      <div className="mx-auto px-4 flex justify-between items-center">
+      <div className="mx-auto px-4 flex justify-end gap-5 items-center">
         <div>
-          {userEmail && (
-            <span className="text-white">Logged in as: {userEmail}</span>
-          )}
+          {userEmail && <span className="text-white">Hello, {userEmail}</span>}
         </div>
         <div>
           {token && (
