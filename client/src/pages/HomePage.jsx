@@ -45,11 +45,11 @@ export default function HomePage() {
   const handleDelete = async () => {
     const loggedInUserEmail = localStorage.getItem("email");
 
-    const selectedUserEmail = users.find((user) =>
-      selectedUsers.includes(user._id)
-    ).email;
+    const selectedUserEmails = users
+      .filter((user) => selectedUsers.includes(user._id))
+      .map((user) => user.email);
 
-    if (loggedInUserEmail === selectedUserEmail) {
+    if (selectedUserEmails.includes(loggedInUserEmail)) {
       localStorage.removeItem("token");
       localStorage.removeItem("email");
       navigate("/signin");
@@ -73,11 +73,16 @@ export default function HomePage() {
   const handleStatusChange = async (status) => {
     const loggedInUserEmail = localStorage.getItem("email");
 
-    const selectedUserEmail = users.find((user) =>
-      selectedUsers.includes(user._id)
-    ).email;
+    const selectedUserEmails = users
+      .filter((user) => selectedUsers.includes(user._id))
+      .map((user) => user.email);
 
-    if (loggedInUserEmail === selectedUserEmail && status === "blocked") {
+    const isAnyBlocked = selectedUsers.some((userId) => {
+      const user = users.find((user) => user._id === userId);
+      return user.status === "blocked";
+    });
+
+    if (selectedUserEmails.includes(loggedInUserEmail) && isAnyBlocked) {
       localStorage.removeItem("token");
       localStorage.removeItem("email");
       navigate("/signin");
