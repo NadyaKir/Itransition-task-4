@@ -5,6 +5,6 @@ export const getStatusColor = (status) => {
     case "blocked":
       return "bg-red-500 text-white";
     default:
-      return "";
+      return "bg-blue-500 text-white";
   }
 };
