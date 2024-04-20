@@ -3,7 +3,9 @@ import moment from "moment";
 
 const fetchUsers = async () => {
   try {
-    const response = await axios.get("http://localhost:8000/api/getAllUsers");
+    const response = await axios.get(
+      "https://itransition-task-4-phxs.onrender.com/api/getAllUsers"
+    );
     const usersData = response.data;
 
     const users = usersData.map((userData) => {

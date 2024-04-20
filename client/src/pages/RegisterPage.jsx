@@ -8,11 +8,14 @@ export default function RegisterPage() {
   const handleRegister = async ({ username, email, password }) => {
     console.log(username, email, password);
     try {
-      const response = await axios.post("http://localhost:8000/api/create", {
-        name: username,
-        email,
-        password,
-      });
+      const response = await axios.post(
+        "https://itransition-task-4-phxs.onrender.com/api/create",
+        {
+          name: username,
+          email,
+          password,
+        }
+      );
 
       if (!response.data) {
         throw new Error(response.data.message || "Registration failed");

@@ -9,11 +9,14 @@ export default function SignInPage() {
 
   const handleLogin = async ({ email, password }) => {
     try {
-      const response = await axios.post("http://localhost:8000/api/login", {
-        email,
-        password,
-        lastLoginDate: new Date(),
-      });
+      const response = await axios.post(
+        "https://itransition-task-4-phxs.onrender.com/api/login",
+        {
+          email,
+          password,
+          lastLoginDate: new Date(),
+        }
+      );
       const token = response.data.token;
       localStorage.setItem("token", token);
       localStorage.setItem("email", email);

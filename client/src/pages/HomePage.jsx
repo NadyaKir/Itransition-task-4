@@ -59,7 +59,7 @@ export default function HomePage() {
     try {
       const deletePromises = selectedUsers.map(async (userId) => {
         const response = await axios.delete(
-          `http://localhost:8000/api/deleteUser/${userId}`
+          `https://itransition-task-4-phxs.onrender.com/api/deleteUser/${userId}`
         );
         return response.data;
       });
@@ -90,10 +90,9 @@ export default function HomePage() {
       navigate("/signin");
     }
 
-    console.log(selectedUsers);
     try {
       const response = await axios.put(
-        `http://localhost:8000/api/updateUserStatus`,
+        `https://itransition-task-4-phxs.onrender.com/api/updateUserStatus`,
         { userIds: selectedUsers, status }
       );
       setSelectedUsers([]);
